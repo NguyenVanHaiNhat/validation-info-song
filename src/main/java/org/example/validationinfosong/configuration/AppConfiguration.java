@@ -4,11 +4,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -80,7 +78,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/User");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/Song");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
         return dataSource;
@@ -98,7 +96,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("org.example.validationformreg.model");
+        em.setPackagesToScan("org.example.validationinfosong.model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -111,12 +109,5 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
         return transactionManager;
-    }
-
-    @Bean
-    public MessageSource messageSource(){
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("validation-message");
-        return messageSource;
     }
 }

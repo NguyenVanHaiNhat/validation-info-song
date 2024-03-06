@@ -1,4 +1,6 @@
 package org.example.validationinfosong.service;
 
-public interface ISongService {
+import org.example.validationinfosong.model.Song;
+
+public interface ISongService extends IGenerateService<Song>{
 }
